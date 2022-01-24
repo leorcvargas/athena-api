@@ -46,6 +46,12 @@ export const usersMock: User[] = [
 export const userServiceMock = {
   findOneByUsername: jest.fn().mockResolvedValue(userMock),
   findOne: jest.fn().mockResolvedValue(userMock),
+  create: jest.fn().mockImplementation((args) =>
+    Promise.resolve({
+      ...userMock,
+      ...args,
+    }),
+  ),
 };
 
 export const userRepositoryMock = {

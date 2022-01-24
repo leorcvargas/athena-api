@@ -2,9 +2,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ModuleMocker, MockFunctionMetadata } from 'jest-mock';
 
-import { UserService } from '../user/user.service';
-import { AuthService } from '../auth/auth.service';
-import { userMock, userServiceMock } from './mock/user';
+import { UserService } from '../../user/user.service';
+import { AuthService } from '../../auth/auth.service';
+import { userMock, userServiceMock } from '../mock/user';
 
 const moduleMocker = new ModuleMocker(global);
 
@@ -53,5 +53,16 @@ describe('AuthService', () => {
     return service
       .validateUser(userMock.username, wrongPassword)
       .then((data) => expect(data).toBeNull());
+  });
+
+  it('should successfuly sign up a new user', () => {
+    const { email, username } = userMock;
+    const password = 'foobar';
+
+    return service.signUp({ email, username, password }).then((data) => {
+      expect(data.username).toBe(username);
+      expect(data.email).toBe(email);
+      expect(data.password).not.toBe(password);
+    });
   });
 });

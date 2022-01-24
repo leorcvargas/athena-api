@@ -1,5 +1,5 @@
 export const configuration = () => ({
-  port: parseInt(process.env.PORT, 10) || 3000,
+  port: parseInt(process.env.PORT, 10) || 3001,
   database: {
     name: process.env.DB_NAME,
     host: process.env.DB_HOST,
