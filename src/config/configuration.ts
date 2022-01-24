@@ -1,5 +1,6 @@
 export const configuration = () => ({
   port: parseInt(process.env.PORT, 10) || 3001,
+  jwtSecret: process.env.JWT_SECRET,
   database: {
     name: process.env.DB_NAME,
     host: process.env.DB_HOST,
