@@ -3,7 +3,7 @@ version: '3.8'
 services:
     dev:
         container_name: athena_api_dev
-        image: athena-api-dev:1.0.0
+        image: athena-api-dev:0.0.2
         build:
             context: .
             target: development
@@ -23,7 +23,7 @@ services:
 
     prod:
         container_name: athena_api_prod
-        image: athena-api-prod:1.0.0
+        image: athena-api-prod:0.0.2
         build:
             context: .
             target: production
