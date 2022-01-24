@@ -38,20 +38,20 @@ describe('AuthService', () => {
   });
 
   it('should return a valid user', () => {
-    const { username, password } = userMock;
+    const password = 'foobar';
 
     const { password: removedPassword, ...expectedResult } = userMock;
 
-    expect(service.validateUser(username, password)).resolves.toEqual(
-      expectedResult,
-    );
+    return service
+      .validateUser(userMock.username, password)
+      .then((data) => expect(data).toEqual(expectedResult));
   });
 
   it('should return null for an invalid user', () => {
-    const wrongPassword = 'wrong_password_123';
+    const wrongPassword = 'wrong_password';
 
-    expect(
-      service.validateUser(userMock.username, wrongPassword),
-    ).resolves.toEqual(null);
+    return service
+      .validateUser(userMock.username, wrongPassword)
+      .then((data) => expect(data).toBeNull());
   });
 });
