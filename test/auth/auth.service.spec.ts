@@ -3,8 +3,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ModuleMocker, MockFunctionMetadata } from 'jest-mock';
 
-import { UserService } from '../../user/user.service';
-import { AuthService } from '../../auth/auth.service';
+import { UserService } from '../../src/user/user.service';
+import { AuthService } from '../../src/auth/auth.service';
 import { userMock, userServiceMock } from '../mock/user';
 
 const moduleMocker = new ModuleMocker(global);
