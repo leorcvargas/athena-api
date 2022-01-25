@@ -26,13 +26,17 @@ describe('UserService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should find an user by id', () => {
-    expect(service.findOne(1)).resolves.toEqual(userMock);
+  describe('find one', () => {
+    it('should find an user by id', () => {
+      expect(service.findOne(1)).resolves.toEqual(userMock);
+    });
   });
 
-  it('should find an user by username', () => {
-    expect(service.findOneByUsername(userMock.username)).resolves.toEqual(
-      userMock,
-    );
+  describe('find one by username', () => {
+    it('should find an user by username', () => {
+      expect(service.findOneByUsername(userMock.username)).resolves.toEqual(
+        userMock,
+      );
+    });
   });
 });

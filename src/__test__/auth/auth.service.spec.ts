@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { JwtModule } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ModuleMocker, MockFunctionMetadata } from 'jest-mock';
 
@@ -13,6 +14,12 @@ describe('AuthService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [
+        JwtModule.register({
+          secret: 'secret-key',
+          signOptions: { expiresIn: '7d' },
+        }),
+      ],
       providers: [AuthService],
     })
       .useMocker((token) => {
@@ -37,32 +44,44 @@ describe('AuthService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should return a valid user', () => {
-    const password = 'foobar';
+  describe('validate user', () => {
+    it('should return a valid user', () => {
+      const password = 'foobar';
 
-    const { password: removedPassword, ...expectedResult } = userMock;
+      const { password: removedPassword, ...expectedResult } = userMock;
 
-    return service
-      .validateUser(userMock.username, password)
-      .then((data) => expect(data).toEqual(expectedResult));
+      return service
+        .validateUser(userMock.username, password)
+        .then((data) => expect(data).toEqual(expectedResult));
+    });
+
+    it('should return null for an invalid user', () => {
+      const wrongPassword = 'wrong_password';
+
+      return service
+        .validateUser(userMock.username, wrongPassword)
+        .then((data) => expect(data).toBeNull());
+    });
   });
 
-  it('should return null for an invalid user', () => {
-    const wrongPassword = 'wrong_password';
+  describe('sign up', () => {
+    it('should successfuly sign up a new user', () => {
+      const { email, username } = userMock;
+      const password = 'foobar';
 
-    return service
-      .validateUser(userMock.username, wrongPassword)
-      .then((data) => expect(data).toBeNull());
+      return service.signUp({ email, username, password }).then((data) => {
+        expect(data.username).toBe(username);
+        expect(data.email).toBe(email);
+        expect(data.password).not.toBe(password);
+      });
+    });
   });
 
-  it('should successfuly sign up a new user', () => {
-    const { email, username } = userMock;
-    const password = 'foobar';
-
-    return service.signUp({ email, username, password }).then((data) => {
-      expect(data.username).toBe(username);
-      expect(data.email).toBe(email);
-      expect(data.password).not.toBe(password);
+  describe('login', () => {
+    it('should successfuly login and return access key', () => {
+      return service.login(userMock).then((data) => {
+        expect(data.accessToken).toBeDefined();
+      });
     });
   });
 });
