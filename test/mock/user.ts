@@ -1,4 +1,4 @@
-import { User } from '../../user/user.entity';
+import { User } from '../../src/user/user.entity';
 
 const passwordHash =
   '$2b$10$303EieujEmpxn1QyR6qCpuGluX/PxM6.OmQRRM2MChUvbX.mjsEv6'; // Equal to 'foobar'
