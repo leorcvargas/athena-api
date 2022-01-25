@@ -4,7 +4,7 @@ const passwordHash =
   '$2b$10$303EieujEmpxn1QyR6qCpuGluX/PxM6.OmQRRM2MChUvbX.mjsEv6'; // Equal to 'foobar'
 
 export const userMock: User = {
-  id: 1,
+  id: 'abc',
   username: 'leorcvargas',
   password: passwordHash,
   email: 'leorcvargas@dev.com',
@@ -15,7 +15,7 @@ export const userMock: User = {
 
 export const usersMock: User[] = [
   {
-    id: 1,
+    id: 'abc',
     username: 'leorcvargas',
     password: passwordHash,
     email: 'leorcvargas@dev.com',
@@ -24,7 +24,7 @@ export const usersMock: User[] = [
     deletedAt: null,
   },
   {
-    id: 2,
+    id: 'def',
     username: 'amazinguser',
     password: passwordHash,
     email: 'amazinguser@dev.com',
@@ -33,7 +33,7 @@ export const usersMock: User[] = [
     deletedAt: null,
   },
   {
-    id: 3,
+    id: 'ghi',
     username: 'deleteduser',
     password: passwordHash,
     email: 'deleted_users@dev.com',

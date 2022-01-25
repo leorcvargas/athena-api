@@ -1,0 +1,13 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "athena",
+  "password": "athena",
+  "database": "athena_dev",
+  "entities": ["dist/**/*.entity{ .ts,.js}"],
+  "synchronize": false,
+  "migrations": ["migrations/*{.ts,.js}"],
+  "migrationsTableName": "migrations_typeorm",
+  "migrationsRun": true
+}
