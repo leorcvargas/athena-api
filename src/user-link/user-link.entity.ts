@@ -25,14 +25,14 @@ export class UserLink {
   url: string;
 
   @Field((type) => User)
-  @ManyToOne((type) => User, { cascade: true })
+  @ManyToOne((type) => User, { nullable: false })
   @JoinColumn({ name: 'user_id' })
   user: User;
 
   @Field((type) => UserLinkKind)
-  @ManyToOne((type) => UserLinkKind)
-  @JoinColumn({ name: 'type_id' })
-  type: UserLinkKind;
+  @ManyToOne((type) => UserLinkKind, { nullable: false })
+  @JoinColumn({ name: 'kind_id' })
+  kind: UserLinkKind;
 
   @Field((type) => Date)
   @CreateDateColumn({ name: 'created_at' })
