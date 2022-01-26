@@ -5,7 +5,6 @@ import * as bcrypt from 'bcrypt';
 
 import { User } from '../user/user.entity';
 import { UserService } from '../user/user.service';
-import { SignUpDto } from './dto/sign-up.dto';
 
 @Injectable()
 export class AuthService {
@@ -14,9 +13,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async signUp(body: SignUpDto) {
-    const { email, username, password } = body;
-
+  async signUp(email: string, username: string, password: string) {
     const hash = await this.hashPassword(password);
 
     return this.userService.create(email, username, hash);

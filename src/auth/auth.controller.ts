@@ -19,7 +19,7 @@ export class AuthController {
 
   @Post('signup')
   async signUp(@Body() body: SignUpDto, @Res() res: Response) {
-    await this.authService.signUp(body);
+    await this.authService.signUp(body.email, body.username, body.password);
 
     res.status(HttpStatus.CREATED).send();
   }
