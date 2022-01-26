@@ -6,7 +6,7 @@ export enum UserLinkKindEnum {
 }
 
 @ObjectType()
-@Entity({ name: 'link_kinds' })
+@Entity({ name: 'user_link_kinds' })
 export class UserLinkKind {
   @Field((type) => String)
   @PrimaryGeneratedColumn('uuid')

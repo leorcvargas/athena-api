@@ -34,6 +34,7 @@ type UserLinkKind {
 type UserLink {
   id: String!
   url: String!
+  user: User!
   type: UserLinkKind!
   createdAt: DateTime!
   updatedAt: DateTime!

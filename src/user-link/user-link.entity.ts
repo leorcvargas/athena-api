@@ -10,6 +10,7 @@ import {
   JoinColumn,
 } from 'typeorm';
 
+import { User } from '../user/user.entity';
 import { UserLinkKind } from '../user-link-kind/user-link-kind.entity';
 
 @ObjectType()
@@ -22,6 +23,11 @@ export class UserLink {
   @Field((type) => String)
   @Column()
   url: string;
+
+  @Field((type) => User)
+  @ManyToOne((type) => User, { cascade: true })
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Field((type) => UserLinkKind)
   @ManyToOne((type) => UserLinkKind)
