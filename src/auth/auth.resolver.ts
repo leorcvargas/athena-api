@@ -1,6 +1,6 @@
 import { ClassSerializerInterceptor, UseInterceptors } from '@nestjs/common';
 import { Resolver, Mutation, Args } from '@nestjs/graphql';
-import { UserInputError } from 'apollo-server-express';
+import { AuthenticationError } from 'apollo-server-express';
 
 import { AuthService } from './auth.service';
 import { LoginInput } from './dto/login.input';
@@ -20,7 +20,7 @@ export class AuthResolver {
     const user = await this.authService.validateUser(username, password);
 
     if (!user) {
-      throw new UserInputError('Username or password incorrect.');
+      throw new AuthenticationError('Username or password incorrect.');
     }
 
     const { accessToken } = await this.authService.login(user);
