@@ -24,7 +24,7 @@ export class User {
   @Column({ length: 20, unique: true })
   username: string;
 
-  @Field((type) => String)
+  @Field((type) => String, { nullable: true })
   @Column()
   @Exclude()
   password?: string;
@@ -37,7 +37,7 @@ export class User {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  @Field((type) => Date)
+  @Field((type) => Date, { nullable: true })
   @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt: Date;
 }
