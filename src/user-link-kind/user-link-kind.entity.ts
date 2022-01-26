@@ -12,11 +12,11 @@ registerEnumType(UserLinkKindEnum, {
 @ObjectType()
 @Entity({ name: 'user_link_kinds' })
 export class UserLinkKind {
-  @Field((type) => String)
+  @Field((_type) => String)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Field((type) => UserLinkKindEnum)
+  @Field((_type) => UserLinkKindEnum)
   @Column()
   value: UserLinkKindEnum;
 }

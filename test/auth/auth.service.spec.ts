@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { JwtModule } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ModuleMocker, MockFunctionMetadata } from 'jest-mock';
@@ -48,7 +47,7 @@ describe('AuthService', () => {
     it('should return a valid user', () => {
       const password = 'foobar';
 
-      const { password: removedPassword, ...expectedResult } = userMock;
+      const { password: _removedPassword, ...expectedResult } = userMock;
 
       return service
         .validateUser(userMock.username, password)

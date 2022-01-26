@@ -16,33 +16,33 @@ import { UserLinkKind } from '../user-link-kind/user-link-kind.entity';
 @ObjectType()
 @Entity({ name: 'user_links' })
 export class UserLink {
-  @Field((type) => String)
+  @Field((_type) => String)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Field((type) => String)
+  @Field((_type) => String)
   @Column()
   url: string;
 
-  @Field((type) => User)
-  @ManyToOne((type) => User, { nullable: false })
+  @Field((_type) => User)
+  @ManyToOne((_type) => User, { nullable: false })
   @JoinColumn({ name: 'user_id' })
   user: User | string;
 
-  @Field((type) => UserLinkKind)
-  @ManyToOne((type) => UserLinkKind, { nullable: false })
+  @Field((_type) => UserLinkKind)
+  @ManyToOne((_type) => UserLinkKind, { nullable: false })
   @JoinColumn({ name: 'kind_id' })
   kind: UserLinkKind | string;
 
-  @Field((type) => Date)
+  @Field((_type) => Date)
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @Field((type) => Date)
+  @Field((_type) => Date)
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  @Field((type) => Date, { nullable: true })
+  @Field((_type) => Date, { nullable: true })
   @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt: Date;
 }

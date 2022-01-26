@@ -16,7 +16,7 @@ import { UserLink } from './user-link.entity';
 import { UserLinkService } from './user-link.service';
 import { UserService } from '../user/user.service';
 
-@Resolver((of) => UserLink)
+@Resolver((_of) => UserLink)
 export class UserLinkResolver {
   constructor(
     private readonly userService: UserService,
@@ -25,7 +25,7 @@ export class UserLinkResolver {
   ) {}
 
   @UseGuards(GqlAuthGuard)
-  @Mutation((returns) => UserLink)
+  @Mutation((_returns) => UserLink)
   async createUserLink(
     @CurrentUser() user,
     @Args('input') input: UserLinkInput,
@@ -34,7 +34,7 @@ export class UserLinkResolver {
   }
 
   @UseGuards(GqlAuthGuard)
-  @Query((returns) => [UserLink])
+  @Query((_returns) => [UserLink])
   async userLinks(@CurrentUser() user) {
     return this.userLinkService.findByUser(user.id);
   }

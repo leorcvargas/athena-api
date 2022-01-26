@@ -13,7 +13,7 @@ export class AuthResolver {
   constructor(private authService: AuthService) {}
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @Mutation((returns) => LoginPayload)
+  @Mutation((_returns) => LoginPayload)
   async login(@Args('input') input: LoginInput) {
     const { username, password } = input;
 
@@ -33,7 +33,7 @@ export class AuthResolver {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
-  @Mutation((returns) => SignUpPayload)
+  @Mutation((_returns) => SignUpPayload)
   async signUp(@Args('input') input: SignUpInput) {
     const { email, username, password } = input;
 

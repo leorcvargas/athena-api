@@ -12,32 +12,32 @@ import {
 @ObjectType()
 @Entity({ name: 'users' })
 export class User {
-  @Field((type) => String)
+  @Field((_type) => String)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Field((type) => String)
+  @Field((_type) => String)
   @Column({ unique: true })
   email: string;
 
-  @Field((type) => String)
+  @Field((_type) => String)
   @Column({ length: 20, unique: true })
   username: string;
 
-  @Field((type) => String, { nullable: true })
+  @Field((_type) => String, { nullable: true })
   @Column()
   @Exclude()
   password?: string;
 
-  @Field((type) => Date)
+  @Field((_type) => Date)
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
 
-  @Field((type) => Date)
+  @Field((_type) => Date)
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt: Date;
 
-  @Field((type) => Date, { nullable: true })
+  @Field((_type) => Date, { nullable: true })
   @DeleteDateColumn({ name: 'deleted_at' })
   deletedAt: Date;
 }

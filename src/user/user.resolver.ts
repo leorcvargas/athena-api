@@ -10,11 +10,11 @@ import { User } from './user.entity';
 import { GqlAuthGuard } from '../auth/guards/graphql-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user-gql.decorator';
 
-@Resolver((of) => User)
+@Resolver((_of) => User)
 export class UserResolver {
   constructor(private userService: UserService) {}
 
-  @Query((returns) => User)
+  @Query((_returns) => User)
   @UseGuards(GqlAuthGuard)
   @UseInterceptors(ClassSerializerInterceptor)
   async profile(@CurrentUser() user: User) {
