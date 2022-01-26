@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 
@@ -23,13 +23,18 @@ export class AuthService {
   }
 
   async login(user: User) {
-    const payload = { username: user.username, sub: user.id };
+    const { id, email, username } = user;
+    const payload = { username, email, sub: id };
 
     return { accessToken: await this.jwtService.signAsync(payload) };
   }
 
   async validateUser(username: string, password: string) {
     const user = await this.userService.findOneByUsername(username);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
 
     const validPassword = await this.comparePassword(password, user.password);
 
