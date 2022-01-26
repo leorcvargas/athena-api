@@ -9,7 +9,7 @@ import { User } from '../../src/user/user.entity';
 import { userRepositoryMock } from '../mock/user';
 import { PassportModule } from '@nestjs/passport';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { LocalStrategy } from '../../src/auth/local.strategy';
+import { LocalStrategy } from '../../src/auth/strategies/local.strategy';
 
 describe('AuthController', () => {
   let controller: AuthController;

@@ -7,8 +7,8 @@ import {
 
 import { UserService } from './user.service';
 import { User } from './user.entity';
-import { GqlAuthGuard } from '../auth/graphql-auth.guard';
-import { CurrentUser } from '../auth/current-user-gql.decorator';
+import { GqlAuthGuard } from '../auth/guards/graphql-auth.guard';
+import { CurrentUser } from '../auth/decorators/current-user-gql.decorator';
 
 @Resolver((of) => User)
 export class UserResolver {

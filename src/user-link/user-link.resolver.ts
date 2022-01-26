@@ -9,8 +9,8 @@ import {
 } from '@nestjs/graphql';
 
 import { UserLinkKindService } from '../user-link-kind/user-link-kind.service';
-import { CurrentUser } from '../auth/current-user-gql.decorator';
-import { GqlAuthGuard } from '../auth/graphql-auth.guard';
+import { CurrentUser } from '../auth/decorators/current-user-gql.decorator';
+import { GqlAuthGuard } from '../auth/guards/graphql-auth.guard';
 import { UserLinkInput } from './dto/user-link.input';
 import { UserLink } from './user-link.entity';
 import { UserLinkService } from './user-link.service';
