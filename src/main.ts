@@ -1,16 +1,20 @@
-import { ValidationPipe } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app.module';
+import {
+  getLogLevels,
+  setupPipes,
+  setupSecurity,
+  start,
+} from './lib/bootstrap';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  const configService = app.get(ConfigService);
+  const app = await NestFactory.create(AppModule, {
+    logger: getLogLevels(process.env.NODE_ENV === 'production'),
+  });
+  setupSecurity(app);
+  setupPipes(app);
 
-  app.useGlobalPipes(new ValidationPipe());
-
-  const port = configService.get<number>('port');
-  await app.listen(port);
+  await start(app);
 }
 bootstrap();
