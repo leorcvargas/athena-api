@@ -69,7 +69,7 @@ describe('AuthService', () => {
       const { email, username } = userMock;
       const password = 'foobar';
 
-      return service.signUp({ email, username, password }).then((data) => {
+      return service.signUp(email, username, password).then((data) => {
         expect(data.username).toBe(username);
         expect(data.email).toBe(email);
         expect(data.password).not.toBe(password);

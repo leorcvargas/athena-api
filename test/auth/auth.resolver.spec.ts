@@ -1,18 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { AuthService } from '../../src/auth/auth.service';
-import { AuthController } from '../../src/auth/auth.controller';
+import { AuthResolver } from '../../src/auth/auth.resolver';
 import { UserService } from '../../src/user/user.service';
 import { User } from '../../src/user/user.entity';
 import { userRepositoryMock } from '../mock/user';
-import { PassportModule } from '@nestjs/passport';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { LocalStrategy } from '../../src/auth/local.strategy';
 
-describe('AuthController', () => {
-  let controller: AuthController;
+describe('AuthResolver', () => {
+  let resolver: AuthResolver;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -26,10 +24,10 @@ describe('AuthController', () => {
           }),
         }),
       ],
-      controllers: [AuthController],
       providers: [
         AuthService,
         UserService,
+        AuthResolver,
         {
           provide: getRepositoryToken(User),
           useValue: userRepositoryMock,
@@ -37,10 +35,10 @@ describe('AuthController', () => {
       ],
     }).compile();
 
-    controller = module.get<AuthController>(AuthController);
+    resolver = module.get<AuthResolver>(AuthResolver);
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(resolver).toBeDefined();
   });
 });
