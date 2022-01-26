@@ -37,7 +37,7 @@ import LoggerMiddleware from './lib/middlewares/logger.middleware';
       debug: true,
       playground: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      // sortSchema: true,
+      sortSchema: true,
     }),
     AuthModule,
     UserModule,

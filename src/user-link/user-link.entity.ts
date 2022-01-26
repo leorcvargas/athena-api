@@ -27,12 +27,12 @@ export class UserLink {
   @Field((type) => User)
   @ManyToOne((type) => User, { nullable: false })
   @JoinColumn({ name: 'user_id' })
-  user: User;
+  user: User | string;
 
   @Field((type) => UserLinkKind)
   @ManyToOne((type) => UserLinkKind, { nullable: false })
   @JoinColumn({ name: 'kind_id' })
-  kind: UserLinkKind;
+  kind: UserLinkKind | string;
 
   @Field((type) => Date)
   @CreateDateColumn({ name: 'created_at' })
