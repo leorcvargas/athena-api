@@ -88,7 +88,14 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
-    "coverageDirectory": "../coverage",
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/dist/",
+      "<rootDir>/coverage/",
+      "<rootDir>/test/",
+      "<rootDir>/migrations/"
+    ],
+    "coverageDirectory": "<rootDir>/coverage",
     "testEnvironment": "node"
   }
 }
