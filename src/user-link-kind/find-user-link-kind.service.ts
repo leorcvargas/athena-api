@@ -5,7 +5,7 @@ import { Repository } from 'typeorm';
 import { UserLinkKind, UserLinkKindEnum } from './user-link-kind.entity';
 
 @Injectable()
-export class UserLinkKindService {
+export class FindUserLinkKindService {
   constructor(
     @InjectRepository(UserLinkKind)
     private readonly userLinkKindRepository: Repository<UserLinkKind>,

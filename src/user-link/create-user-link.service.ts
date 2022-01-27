@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { UserLinkKindEnum } from '../user-link-kind/user-link-kind.entity';
-import { UserLinkKindService } from '../user-link-kind/user-link-kind.service';
+import { FindUserLinkKindService } from '../user-link-kind/find-user-link-kind.service';
 import { UserLink } from './user-link.entity';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class CreateUserLinkService {
   constructor(
     @InjectRepository(UserLink)
     private readonly userLinkRepository: Repository<UserLink>,
-    private readonly userLinkKindService: UserLinkKindService,
+    private readonly findUserLinkKindService: FindUserLinkKindService,
   ) {}
 
   public async create(payload: {
@@ -19,7 +19,7 @@ export class CreateUserLinkService {
     user: string;
     kind: UserLinkKindEnum;
   }) {
-    const kind = await this.userLinkKindService.findOneByKind(payload.kind);
+    const kind = await this.findUserLinkKindService.findOneByKind(payload.kind);
     const userLink = this.userLinkRepository.create({
       ...payload,
       kind,

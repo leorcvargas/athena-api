@@ -8,7 +8,7 @@ import {
   Args,
 } from '@nestjs/graphql';
 
-import { UserLinkKindService } from '../user-link-kind/user-link-kind.service';
+import { FindUserLinkKindService } from '../user-link-kind/find-user-link-kind.service';
 import { CurrentUser } from '../auth/decorators/current-user-gql.decorator';
 import { GqlAuthGuard } from '../auth/guards/graphql-auth.guard';
 import { UserLinkInput } from './dto/user-link.input';
@@ -23,7 +23,7 @@ export class UserLinkResolver {
     private readonly findUserService: FindUserService,
     private readonly createUserLinkService: CreateUserLinkService,
     private readonly findUserLinkService: FindUserLinkService,
-    private readonly userLinkKindService: UserLinkKindService,
+    private readonly findUserLinkKindService: FindUserLinkKindService,
   ) {}
 
   @UseGuards(GqlAuthGuard)
@@ -43,7 +43,7 @@ export class UserLinkResolver {
 
   @ResolveField()
   async kind(@Parent() userLink: UserLink) {
-    return this.userLinkKindService.findOne(userLink.kind as string);
+    return this.findUserLinkKindService.findOne(userLink.kind as string);
   }
 
   @ResolveField()
