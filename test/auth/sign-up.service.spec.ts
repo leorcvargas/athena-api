@@ -1,18 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MockFunctionMetadata, ModuleMocker } from 'jest-mock';
+import { ModuleMocker, MockFunctionMetadata } from 'jest-mock';
 
+import { SignUpService } from '../../src/auth/sign-up.service';
 import { UserService } from '../../src/user/user.service';
-import { userServiceMock } from '../mock/user';
-import { UserLinkResolver } from '../../src/user-link/user-link.resolver';
+import { userMock, userServiceMock } from '../mock/user';
 
 const moduleMocker = new ModuleMocker(global);
 
-describe('UserLinkResolver', () => {
-  let service: UserLinkResolver;
+describe('SignUpService', () => {
+  let service: SignUpService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [UserLinkResolver],
+      providers: [SignUpService],
     })
       .useMocker((token) => {
         if (token === UserService) {
@@ -29,10 +29,21 @@ describe('UserLinkResolver', () => {
       })
       .compile();
 
-    service = module.get<UserLinkResolver>(UserLinkResolver);
+    service = module.get<SignUpService>(SignUpService);
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  it('should successfuly sign up a new user', () => {
+    const { email, username } = userMock;
+    const password = 'foobar';
+
+    return service.signUp(email, username, password).then((data) => {
+      expect(data.username).toBe(username);
+      expect(data.email).toBe(email);
+      expect(data.password).not.toBe(password);
+    });
   });
 });

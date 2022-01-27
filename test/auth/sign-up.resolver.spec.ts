@@ -3,14 +3,15 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
-import { AuthService } from '../../src/auth/auth.service';
-import { AuthResolver } from '../../src/auth/auth.resolver';
+import { SignUpResolver } from '../../src/auth/sign-up.resolver';
 import { UserService } from '../../src/user/user.service';
 import { User } from '../../src/user/user.entity';
 import { userRepositoryMock } from '../mock/user';
+import { SignUpService } from '../../src/auth/sign-up.service';
+import { HashService } from '../../src/auth/hash.service';
 
-describe('AuthResolver', () => {
-  let resolver: AuthResolver;
+describe('SignUpResolver', () => {
+  let resolver: SignUpResolver;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -25,9 +26,10 @@ describe('AuthResolver', () => {
         }),
       ],
       providers: [
-        AuthService,
+        SignUpResolver,
         UserService,
-        AuthResolver,
+        SignUpService,
+        HashService,
         {
           provide: getRepositoryToken(User),
           useValue: userRepositoryMock,
@@ -35,7 +37,7 @@ describe('AuthResolver', () => {
       ],
     }).compile();
 
-    resolver = module.get<AuthResolver>(AuthResolver);
+    resolver = module.get<SignUpResolver>(SignUpResolver);
   });
 
   it('should be defined', () => {

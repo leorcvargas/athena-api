@@ -14,13 +14,13 @@ export class UserService {
   ) {}
 
   async create(email: string, username: string, password: string) {
-    const sameEmailUser = await this.userRepository
+    const userAlreadyExists = await this.userRepository
       .createQueryBuilder()
       .where('email = :email', { email })
       .orWhere('username = :username', { username })
       .getOne();
 
-    if (sameEmailUser) {
+    if (userAlreadyExists) {
       this.logger.warn(
         'Tried to sign up with an email or username already in use.',
       );

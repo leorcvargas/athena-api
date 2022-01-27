@@ -1,16 +1,18 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
 import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { getRepositoryToken } from '@nestjs/typeorm';
 
-import { AuthService } from '../../src/auth/auth.service';
-import { AuthController } from '../../src/auth/auth.controller';
+import { LoginResolver } from '../../src/auth/login.resolver';
 import { UserService } from '../../src/user/user.service';
 import { User } from '../../src/user/user.entity';
 import { userRepositoryMock } from '../mock/user';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { LoginService } from '../../src/auth/login.service';
+import { HashService } from '../../src/auth/hash.service';
+import { ValidateUserService } from '../../src/auth/validate-user.service';
 
-describe('AuthController', () => {
-  let controller: AuthController;
+describe('LoginResolver', () => {
+  let resolver: LoginResolver;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -24,10 +26,12 @@ describe('AuthController', () => {
           }),
         }),
       ],
-      controllers: [AuthController],
       providers: [
-        AuthService,
+        LoginResolver,
         UserService,
+        LoginService,
+        HashService,
+        ValidateUserService,
         {
           provide: getRepositoryToken(User),
           useValue: userRepositoryMock,
@@ -35,10 +39,10 @@ describe('AuthController', () => {
       ],
     }).compile();
 
-    controller = module.get<AuthController>(AuthController);
+    resolver = module.get<LoginResolver>(LoginResolver);
   });
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
+    expect(resolver).toBeDefined();
   });
 });

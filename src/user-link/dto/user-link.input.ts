@@ -1,6 +1,7 @@
 import { Field, InputType } from '@nestjs/graphql';
 import { IsNotEmpty, IsUrl } from 'class-validator';
-import { UserLinkKindEnum } from 'src/user-link-kind/user-link-kind.entity';
+
+import { UserLinkKindEnum } from '../../user-link-kind/user-link-kind.entity';
 
 @InputType()
 export class UserLinkInput {
