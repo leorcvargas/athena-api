@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
@@ -7,20 +7,12 @@ import { UserLinkKindService } from '../user-link-kind/user-link-kind.service';
 import { UserLink } from './user-link.entity';
 
 @Injectable()
-export class UserLinkService {
-  private readonly logger = new Logger(UserLinkService.name);
-
+export class CreateUserLinkService {
   constructor(
     @InjectRepository(UserLink)
     private readonly userLinkRepository: Repository<UserLink>,
     private readonly userLinkKindService: UserLinkKindService,
   ) {}
-
-  public findByUser(userId: string) {
-    return this.userLinkRepository.find({
-      where: { user: userId },
-    });
-  }
 
   public async create(payload: {
     url: string;

@@ -5,7 +5,9 @@ import { UserModule } from '../user/user.module';
 import { UserLinkKindModule } from '../user-link-kind/user-link-kind.module';
 import { UserLink } from './user-link.entity';
 import { UserLinkResolver } from './user-link.resolver';
-import { UserLinkService } from './user-link.service';
+import { CreateUserLinkService } from './create-user-link.service';
+import { FindUserLinkService } from './find-user-link.service';
+import { DeleteUserLinkService } from './delete-user-link.service';
 
 @Module({
   imports: [
@@ -13,6 +15,11 @@ import { UserLinkService } from './user-link.service';
     UserLinkKindModule,
     UserModule,
   ],
-  providers: [UserLinkService, UserLinkResolver],
+  providers: [
+    UserLinkResolver,
+    CreateUserLinkService,
+    FindUserLinkService,
+    DeleteUserLinkService,
+  ],
 })
 export class UserLinkModule {}
