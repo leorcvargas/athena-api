@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
 import { ModuleMocker, MockFunctionMetadata } from 'jest-mock';
 
 import { ValidateUserService } from '../../src/auth/validate-user.service';

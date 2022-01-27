@@ -8,7 +8,7 @@ import { UserLinkResolver } from '../../src/user-link/user-link.resolver';
 const moduleMocker = new ModuleMocker(global);
 
 describe('UserLinkResolver', () => {
-  let service: UserLinkResolver;
+  let _service: UserLinkResolver;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -29,7 +29,7 @@ describe('UserLinkResolver', () => {
       })
       .compile();
 
-    service = module.get<UserLinkResolver>(UserLinkResolver);
+    _service = module.get<UserLinkResolver>(UserLinkResolver);
   });
 
   it.todo('should be defined');
