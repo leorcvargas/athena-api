@@ -4,7 +4,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { userRepositoryMock } from '../mock/user';
 import { User } from '../../src/user/user.entity';
 import { UserResolver } from '../../src/user/user.resolver';
-import { UserService } from '../../src/user/user.service';
+import { FindUserService } from '../../src/user/find-user.service';
 
 describe('UserResolver', () => {
   let resolver: UserResolver;
@@ -13,7 +13,7 @@ describe('UserResolver', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UserResolver,
-        UserService,
+        FindUserService,
         {
           provide: getRepositoryToken(User),
           useValue: userRepositoryMock,

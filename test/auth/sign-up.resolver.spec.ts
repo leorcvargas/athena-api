@@ -4,11 +4,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { SignUpResolver } from '../../src/auth/sign-up.resolver';
-import { UserService } from '../../src/user/user.service';
 import { User } from '../../src/user/user.entity';
 import { userRepositoryMock } from '../mock/user';
 import { SignUpService } from '../../src/auth/sign-up.service';
 import { HashService } from '../../src/auth/hash.service';
+import { CreateUserService } from '../../src/user/create-user.service';
 
 describe('SignUpResolver', () => {
   let resolver: SignUpResolver;
@@ -27,7 +27,7 @@ describe('SignUpResolver', () => {
       ],
       providers: [
         SignUpResolver,
-        UserService,
+        CreateUserService,
         SignUpService,
         HashService,
         {

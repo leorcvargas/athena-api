@@ -54,6 +54,27 @@ export const userServiceMock = {
   ),
 };
 
+export const createUserServiceMock = {
+  create: jest.fn().mockImplementation((args) =>
+    Promise.resolve({
+      ...userMock,
+      ...args,
+    }),
+  ),
+};
+
 export const userRepositoryMock = {
   findOne: jest.fn().mockResolvedValue(userMock),
+  save: jest.fn().mockImplementation((args) =>
+    Promise.resolve({
+      ...userMock,
+      ...args,
+    }),
+  ),
+  create: jest.fn().mockImplementation((args) => ({ ...userMock, ...args })),
+  createQueryBuilder: jest.fn(() => ({
+    where: jest.fn().mockReturnThis(),
+    orWhere: jest.fn().mockReturnThis(),
+    getOne: jest.fn().mockReturnValue(null),
+  })),
 };

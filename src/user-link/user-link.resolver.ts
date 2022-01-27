@@ -14,12 +14,12 @@ import { GqlAuthGuard } from '../auth/guards/graphql-auth.guard';
 import { UserLinkInput } from './dto/user-link.input';
 import { UserLink } from './user-link.entity';
 import { UserLinkService } from './user-link.service';
-import { UserService } from '../user/user.service';
+import { FindUserService } from '../user/find-user.service';
 
 @Resolver((_of) => UserLink)
 export class UserLinkResolver {
   constructor(
-    private readonly userService: UserService,
+    private readonly findUserService: FindUserService,
     private readonly userLinkService: UserLinkService,
     private readonly userLinkKindService: UserLinkKindService,
   ) {}
@@ -46,6 +46,6 @@ export class UserLinkResolver {
 
   @ResolveField()
   async user(@Parent() userLink: UserLink) {
-    return this.userService.findOne(userLink.user as string);
+    return this.findUserService.findOne(userLink.user as string);
   }
 }

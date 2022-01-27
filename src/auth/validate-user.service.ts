@@ -1,17 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { UserService } from '../user/user.service';
+import { FindUserService } from '../user/find-user.service';
 import { HashService } from './hash.service';
 
 @Injectable()
 export class ValidateUserService {
   constructor(
-    private readonly userService: UserService,
+    private readonly findUserService: FindUserService,
     private readonly hashService: HashService,
   ) {}
 
   async validate(username: string, password: string) {
-    const user = await this.userService.findOneByUsername(username);
+    const user = await this.findUserService.findOneByUsername(username);
 
     if (!user) {
       throw new NotFoundException('User not found');

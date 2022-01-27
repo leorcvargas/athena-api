@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ModuleMocker, MockFunctionMetadata } from 'jest-mock';
 
+import { CreateUserService } from '../../src/user/create-user.service';
 import { SignUpService } from '../../src/auth/sign-up.service';
-import { UserService } from '../../src/user/user.service';
-import { userMock, userServiceMock } from '../mock/user';
+import { createUserServiceMock, userMock } from '../mock/user';
 
 const moduleMocker = new ModuleMocker(global);
 
@@ -15,8 +15,8 @@ describe('SignUpService', () => {
       providers: [SignUpService],
     })
       .useMocker((token) => {
-        if (token === UserService) {
-          return userServiceMock;
+        if (token === CreateUserService) {
+          return createUserServiceMock;
         }
 
         if (typeof token === 'function') {

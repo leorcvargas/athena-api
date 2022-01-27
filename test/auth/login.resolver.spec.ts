@@ -4,7 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { LoginResolver } from '../../src/auth/login.resolver';
-import { UserService } from '../../src/user/user.service';
+import { FindUserService } from '../../src/user/find-user.service';
 import { User } from '../../src/user/user.entity';
 import { userRepositoryMock } from '../mock/user';
 import { LoginService } from '../../src/auth/login.service';
@@ -28,7 +28,7 @@ describe('LoginResolver', () => {
       ],
       providers: [
         LoginResolver,
-        UserService,
+        FindUserService,
         LoginService,
         HashService,
         ValidateUserService,

@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MockFunctionMetadata, ModuleMocker } from 'jest-mock';
 
-import { UserService } from '../../src/user/user.service';
+import { FindUserService } from '../../src/user/find-user.service';
 import { userServiceMock } from '../mock/user';
 import { UserLinkResolver } from '../../src/user-link/user-link.resolver';
 
@@ -15,7 +15,7 @@ describe('UserLinkResolver', () => {
       providers: [UserLinkResolver],
     })
       .useMocker((token) => {
-        if (token === UserService) {
+        if (token === FindUserService) {
           return userServiceMock;
         }
 
