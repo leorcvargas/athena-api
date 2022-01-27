@@ -4,7 +4,7 @@ import { ModuleMocker, MockFunctionMetadata } from 'jest-mock';
 import { HashService } from '../../src/auth/hash.service';
 import { ValidateUserService } from '../../src/auth/validate-user.service';
 import { FindUserService } from '../../src/user/find-user.service';
-import { userMock, userServiceMock } from '../mock/user';
+import { userMock, findUserServiceMock } from '../mock/user';
 
 const moduleMocker = new ModuleMocker(global);
 
@@ -17,7 +17,7 @@ describe('ValidateUserService', () => {
     })
       .useMocker((token) => {
         if (token === FindUserService) {
-          return userServiceMock;
+          return findUserServiceMock;
         }
 
         if (typeof token === 'function') {

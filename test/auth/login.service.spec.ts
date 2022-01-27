@@ -6,7 +6,7 @@ import { ValidateUserService } from '../../src/auth/validate-user.service';
 import { HashService } from '../../src/auth/hash.service';
 import { LoginService } from '../../src/auth/login.service';
 import { FindUserService } from '../../src/user/find-user.service';
-import { userMock, userServiceMock } from '../mock/user';
+import { userMock, findUserServiceMock } from '../mock/user';
 
 const moduleMocker = new ModuleMocker(global);
 
@@ -25,7 +25,7 @@ describe('LoginService', () => {
     })
       .useMocker((token) => {
         if (token === FindUserService) {
-          return userServiceMock;
+          return findUserServiceMock;
         }
 
         if (typeof token === 'function') {

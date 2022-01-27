@@ -1,22 +1,45 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
 
+import { UserLink } from '../../src/user-link/user-link.entity';
 import { FindUserLinkService } from '../../src/user-link/find-user-link.service';
+import { userLinkRepositoryMock } from '../mock/user-link';
+import { userMock } from '../../test/mock/user';
 
 describe('FindUserLinkService', () => {
-  let _service: FindUserLinkService;
+  let service: FindUserLinkService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [FindUserLinkService],
+      providers: [
+        FindUserLinkService,
+        {
+          provide: getRepositoryToken(UserLink),
+          useValue: userLinkRepositoryMock,
+        },
+      ],
     }).compile();
 
-    _service = module.get<FindUserLinkService>(FindUserLinkService);
+    service = module.get<FindUserLinkService>(FindUserLinkService);
   });
 
-  it.todo('should be defined');
+  it('should be defined', () => {
+    expect(service).toBeDefined();
+  });
 
-  describe('find user links', () => {
-    it.todo('should list all user links');
-    it.todo('should list all user links without the deleted ones');
+  it('should list all user links', () => {
+    return service.findByUser(userMock.id).then((userLinks) => {
+      userLinks.forEach((userLink) => {
+        expect(userLink.user).toBe(userMock.id);
+      });
+    });
+  });
+
+  it('should not contain deleted user links', () => {
+    return service.findByUser(userMock.id).then((userLinks) => {
+      userLinks.forEach((userLink) => {
+        expect(userLink.deletedAt).toBeNull();
+      });
+    });
   });
 });

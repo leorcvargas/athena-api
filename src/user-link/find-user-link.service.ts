@@ -13,7 +13,7 @@ export class FindUserLinkService {
 
   public findByUser(userId: string) {
     return this.userLinkRepository.find({
-      where: { user: userId },
+      where: { user: userId, deletedAt: null },
     });
   }
 }
