@@ -12,7 +12,5 @@ describe('UserLinkKindService', () => {
     service = module.get<UserLinkKindService>(UserLinkKindService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
+  it.todo('should be defined');
 });
