@@ -1,20 +1,52 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+
 import { CreateUserLinkService } from '../../src/user-link/create-user-link.service';
+import { FindUserLinkKindService } from '../../src/user-link-kind/find-user-link-kind.service';
+import { UserLink } from '../../src/user-link/user-link.entity';
+import { userLinkMock, userLinkRepositoryMock } from '../mock/user-link';
+import {
+  UserLinkKind,
+  UserLinkKindEnum,
+} from '../../src/user-link-kind/user-link-kind.entity';
+import { userLinkKindRepositoryMock } from '../mock/user-link-kind';
 
 describe('CreateUserLinkService', () => {
-  let _service: CreateUserLinkService;
+  let service: CreateUserLinkService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [CreateUserLinkService],
+      providers: [
+        CreateUserLinkService,
+        FindUserLinkKindService,
+        {
+          provide: getRepositoryToken(UserLink),
+          useValue: userLinkRepositoryMock,
+        },
+        {
+          provide: getRepositoryToken(UserLinkKind),
+          useValue: userLinkKindRepositoryMock,
+        },
+      ],
     }).compile();
 
-    _service = module.get<CreateUserLinkService>(CreateUserLinkService);
+    service = module.get<CreateUserLinkService>(CreateUserLinkService);
   });
 
-  it.todo('should be defined');
+  it('should be defined', () => {
+    expect(service).toBeDefined();
+  });
 
-  it.todo('should create a new link');
-
-  it.todo('should create a new link with the BASIC kind attached');
+  it('should create a new link', () => {
+    const { kind, url, user } = userLinkMock;
+    return service
+      .create({
+        url,
+        user: user as string,
+        kind: kind as UserLinkKindEnum,
+      })
+      .then((userLink) => {
+        expect(userLink).toBeDefined();
+      });
+  });
 });

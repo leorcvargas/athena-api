@@ -5,3 +5,10 @@ export const userLinkKindMock: UserLinkKind = {
   id: 'abc',
   value: UserLinkKindEnum.BASIC,
 };
+
+export const userLinkKindsMock: UserLinkKind[] = [{ ...userLinkKindMock }];
+
+export const userLinkKindRepositoryMock = {
+  findOne: jest.fn().mockResolvedValue(Promise.resolve(userLinkKindMock)),
+  find: jest.fn().mockResolvedValue(Promise.resolve(userLinkKindsMock)),
+};
