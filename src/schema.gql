@@ -4,6 +4,7 @@
 
 input CreateUserLinkInput {
   kind: UserLinkKindEnum!
+  title: String!
   url: String!
 }
 
@@ -67,6 +68,7 @@ type UserLink {
   deletedAt: DateTime
   id: String!
   kind: UserLinkKind!
+  title: String!
   updatedAt: DateTime!
   url: String!
   user: User!

@@ -22,6 +22,10 @@ export class UserLink {
 
   @Field((_type) => String)
   @Column()
+  title: string;
+
+  @Field((_type) => String)
+  @Column()
   url: string;
 
   @Field((_type) => User)

@@ -6,6 +6,7 @@ import { UpdateResult } from 'typeorm';
 export const userLinkMock: UserLink = {
   id: 'abc',
   kind: userLinkKindMock.id,
+  title: 'GitHub',
   url: 'https://github.com/leorcvargas',
   user: userMock.id,
   createdAt: new Date(),
@@ -18,6 +19,7 @@ export const userLinksMock: UserLink[] = [
   {
     id: 'def',
     kind: userLinkKindMock.id,
+    title: 'Instagram',
     url: 'https://instagram.com/leorcvargas',
     user: userMock.id,
     createdAt: new Date(),
@@ -25,8 +27,9 @@ export const userLinksMock: UserLink[] = [
     deletedAt: null,
   },
   {
-    id: 'deleted_user_link',
+    id: 'OEwqjekmlqE',
     kind: userLinkKindMock.id,
+    title: 'Deleted Instagram',
     url: 'https://instagram.com/dkpewermlwqkr',
     user: userMock.id,
     createdAt: new Date(),

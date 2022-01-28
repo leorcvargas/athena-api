@@ -7,6 +7,10 @@ import { UserLinkKindEnum } from '../../user-link-kind/user-link-kind.entity';
 export class CreateUserLinkInput {
   @Field((_type) => String)
   @IsNotEmpty()
+  title: string;
+
+  @Field((_type) => String)
+  @IsNotEmpty()
   @IsUrl()
   url: string;
 
