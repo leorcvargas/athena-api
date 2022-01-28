@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsOptional, IsUrl } from 'class-validator';
+import { IsOptional } from 'class-validator';
 
 import { UserLinkKindEnum } from '../../user-link-kind/user-link-kind.entity';
 
