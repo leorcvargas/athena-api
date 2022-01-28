@@ -19,14 +19,17 @@ import { FindUserLinkService } from './find-user-link.service';
 import { FindUserService } from '../user/find-user.service';
 import { DeleteUserLinkService } from './delete-user-link.service';
 import { ResponsePayload } from '../lib/gql/response.payload';
+import { UpdateUserLinkService } from './update-user-link.service';
+import { UpdateUserLinkInput } from './dto/update-user-link.input';
 
 @Resolver((_of) => UserLink)
 export class UserLinkResolver {
   constructor(
-    private readonly findUserService: FindUserService,
     private readonly createUserLinkService: CreateUserLinkService,
     private readonly deleteUserLinkService: DeleteUserLinkService,
     private readonly findUserLinkService: FindUserLinkService,
+    private readonly updateUserLinkService: UpdateUserLinkService,
+    private readonly findUserService: FindUserService,
     private readonly findUserLinkKindService: FindUserLinkKindService,
   ) {}
 
@@ -37,6 +40,15 @@ export class UserLinkResolver {
     @Args('input') input: CreateUserLinkInput,
   ) {
     return this.createUserLinkService.create({ ...input, user: user.id });
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation((_returns) => UserLink)
+  async updateUserLink(
+    @CurrentUser() user,
+    @Args('input') input: UpdateUserLinkInput,
+  ) {
+    return this.updateUserLinkService.update(user.id, input.id, input);
   }
 
   @UseGuards(GqlAuthGuard)

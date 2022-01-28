@@ -32,6 +32,7 @@ type Mutation {
   deleteUserLink(input: DeleteUserLinkInput!): ResponsePayload!
   login(input: LoginInput!): LoginPayload!
   signUp(input: SignUpInput!): SignUpPayload!
+  updateUserLink(input: UpdateUserLinkInput!): UserLink!
 }
 
 type Query {
@@ -51,6 +52,13 @@ input SignUpInput {
 
 type SignUpPayload {
   user: User!
+}
+
+input UpdateUserLinkInput {
+  id: String!
+  kind: UserLinkKindEnum
+  title: String
+  url: String
 }
 
 type User {
