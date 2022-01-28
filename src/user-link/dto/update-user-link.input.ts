@@ -10,12 +10,11 @@ export class UpdateUserLinkInput {
 
   @Field((_type) => String, { nullable: true })
   @IsOptional()
-  title?: string;
+  title: string;
 
   @Field((_type) => String, { nullable: true })
-  @IsUrl()
   @IsOptional()
-  url?: string;
+  url: string;
 
   @Field((_type) => UserLinkKindEnum, { nullable: true })
   @IsOptional()
