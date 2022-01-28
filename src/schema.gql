@@ -39,7 +39,7 @@ type Query {
 }
 
 type ResponsePayload {
-  result: String!
+  success: Boolean!
 }
 
 input SignUpInput {

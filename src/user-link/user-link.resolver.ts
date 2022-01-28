@@ -48,7 +48,7 @@ export class UserLinkResolver {
     await this.deleteUserLinkService.delete(user.id, input.id);
 
     const response = new ResponsePayload();
-    response.result = 'Ok';
+    response.success = true;
 
     return response;
   }
