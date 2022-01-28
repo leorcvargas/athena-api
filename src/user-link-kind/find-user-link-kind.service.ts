@@ -20,4 +20,8 @@ export class FindUserLinkKindService {
       where: { value: kind },
     });
   }
+
+  public findAll() {
+    return this.userLinkKindRepository.find();
+  }
 }

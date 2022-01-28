@@ -9,6 +9,15 @@ export const userLinkKindMock: UserLinkKind = {
 export const userLinkKindsMock: UserLinkKind[] = [{ ...userLinkKindMock }];
 
 export const userLinkKindRepositoryMock = {
-  findOne: jest.fn().mockResolvedValue(Promise.resolve(userLinkKindMock)),
+  findOne: jest.fn((args) => {
+    if (args?.where?.kind) {
+      const result = userLinkKindsMock.find(
+        (kind) => kind.value === args?.where?.kind,
+      );
+      return Promise.resolve(result);
+    }
+
+    return Promise.resolve(userLinkKindMock);
+  }),
   find: jest.fn().mockResolvedValue(Promise.resolve(userLinkKindsMock)),
 };
