@@ -4,7 +4,7 @@ import { IsNotEmpty, IsUrl } from 'class-validator';
 import { UserLinkKindEnum } from '../../user-link-kind/user-link-kind.entity';
 
 @InputType()
-export class UserLinkInput {
+export class CreateUserLinkInput {
   @Field((_type) => String)
   @IsNotEmpty()
   @IsUrl()

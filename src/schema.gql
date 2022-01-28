@@ -2,10 +2,19 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateUserLinkInput {
+  kind: UserLinkKindEnum!
+  url: String!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+input DeleteUserLinkInput {
+  id: String!
+}
 
 input LoginInput {
   password: String!
@@ -18,7 +27,8 @@ type LoginPayload {
 }
 
 type Mutation {
-  createUserLink(input: UserLinkInput!): UserLink!
+  createUserLink(input: CreateUserLinkInput!): UserLink!
+  deleteUserLink(input: DeleteUserLinkInput!): ResponsePayload!
   login(input: LoginInput!): LoginPayload!
   signUp(input: SignUpInput!): SignUpPayload!
 }
@@ -26,6 +36,10 @@ type Mutation {
 type Query {
   profile: User!
   userLinks: [UserLink!]!
+}
+
+type ResponsePayload {
+  result: String!
 }
 
 input SignUpInput {
@@ -56,11 +70,6 @@ type UserLink {
   updatedAt: DateTime!
   url: String!
   user: User!
-}
-
-input UserLinkInput {
-  kind: UserLinkKindEnum!
-  url: String!
 }
 
 type UserLinkKind {

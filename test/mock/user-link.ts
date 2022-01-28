@@ -1,6 +1,7 @@
 import { userMock } from './user';
 import { UserLink } from '../../src/user-link/user-link.entity';
 import { userLinkKindMock } from './user-link-kind';
+import { UpdateResult } from 'typeorm';
 
 export const userLinkMock: UserLink = {
   id: 'abc',
@@ -65,4 +66,11 @@ export const userLinkRepositoryMock = {
     }),
   ),
   create: jest.fn().mockImplementation((args) => ({ ...userMock, ...args })),
+  softDelete: jest.fn().mockResolvedValue(
+    Promise.resolve<UpdateResult>({
+      generatedMaps: [],
+      raw: '',
+      affected: 1,
+    }),
+  ),
 };
