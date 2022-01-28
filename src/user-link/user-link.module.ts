@@ -8,6 +8,7 @@ import { UserLinkResolver } from './user-link.resolver';
 import { CreateUserLinkService } from './create-user-link.service';
 import { FindUserLinkService } from './find-user-link.service';
 import { DeleteUserLinkService } from './delete-user-link.service';
+import { UpdateUserLinkService } from './update-user-link.service';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { DeleteUserLinkService } from './delete-user-link.service';
     CreateUserLinkService,
     FindUserLinkService,
     DeleteUserLinkService,
+    UpdateUserLinkService,
   ],
 })
 export class UserLinkModule {}

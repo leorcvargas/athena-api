@@ -16,4 +16,10 @@ export class FindUserLinkService {
       where: { user: userId, deletedAt: null },
     });
   }
+
+  public findOneFromUser(userId: string, id: string) {
+    return this.userLinkRepository.findOne({
+      where: { id, user: userId },
+    });
+  }
 }

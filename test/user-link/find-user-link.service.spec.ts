@@ -3,7 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { UserLink } from '../../src/user-link/user-link.entity';
 import { FindUserLinkService } from '../../src/user-link/find-user-link.service';
-import { userLinkRepositoryMock } from '../mock/user-link';
+import { userLinkMock, userLinkRepositoryMock } from '../mock/user-link';
 import { userMock } from '../../test/mock/user';
 
 describe('FindUserLinkService', () => {
@@ -33,6 +33,15 @@ describe('FindUserLinkService', () => {
         expect(userLink.user).toBe(userMock.id);
       });
     });
+  });
+
+  it('should find specific link from user', () => {
+    return service
+      .findOneFromUser(userMock.id, userLinkMock.id)
+      .then((result) => {
+        expect(result.id).toBe(userLinkMock.id);
+        expect(result.user).toBe(userMock.id);
+      });
   });
 
   it('should not contain deleted user links', () => {
