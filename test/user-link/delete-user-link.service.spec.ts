@@ -29,7 +29,7 @@ describe('DeleteUserLinkService', () => {
   it('delete an user link', () => {
     const { id, user } = userLinkMock;
 
-    return service.delete(user as string, id).then((result) => {
+    return service.delete(user as number, id).then((result) => {
       expect(result).toBeDefined();
       expect(result.affected).toBe(1);
     });

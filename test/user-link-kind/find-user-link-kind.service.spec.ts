@@ -31,9 +31,11 @@ describe('FindUserLinkKindService', () => {
 
   describe('findOne', () => {
     it('should find one by id', () => {
-      return service.findOne('abc').then((userLinkKind) => {
+      const id = 1;
+
+      return service.findOne(id).then((userLinkKind) => {
         expect(userLinkKind).toBeDefined();
-        expect(userLinkKind.id).toBe('abc');
+        expect(userLinkKind.id).toBe(id);
       });
     });
 

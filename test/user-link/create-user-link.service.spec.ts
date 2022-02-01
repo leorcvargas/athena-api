@@ -38,12 +38,12 @@ describe('CreateUserLinkService', () => {
   });
 
   it('should create a new link', () => {
-    const { kind, url, user } = userLinkMock;
+    const { url, user } = userLinkMock;
     return service
       .create({
         url,
-        user: user as string,
-        kind: kind as UserLinkKindEnum,
+        user: user as number,
+        kind: UserLinkKindEnum.BASIC,
       })
       .then((userLink) => {
         expect(userLink).toBeDefined();

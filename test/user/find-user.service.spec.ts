@@ -28,7 +28,9 @@ describe('FindUserService', () => {
 
   describe('find one', () => {
     it('should find an user by id', () => {
-      expect(service.findOne('some-random-uuid')).resolves.toEqual(userMock);
+      const id = 3123125214123;
+
+      expect(service.findOne(id)).resolves.toEqual(userMock);
     });
   });
 

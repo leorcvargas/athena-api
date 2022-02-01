@@ -5,6 +5,12 @@ import { UpdateUserLinkService } from '../../src/user-link/update-user-link.serv
 import { FindUserLinkService } from '../../src/user-link/find-user-link.service';
 import { UserLink } from '../../src/user-link/user-link.entity';
 import { userLinkMock, userLinkRepositoryMock } from '../mock/user-link';
+import {
+  UserLinkKind,
+  UserLinkKindEnum,
+} from '../../src/user-link-kind/user-link-kind.entity';
+import { FindUserLinkKindService } from '../../src/user-link-kind/find-user-link-kind.service';
+import { userLinkKindRepositoryMock } from '../mock/user-link-kind';
 
 describe('UpdateUserLinkService', () => {
   let service: UpdateUserLinkService;
@@ -13,10 +19,15 @@ describe('UpdateUserLinkService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UpdateUserLinkService,
+        FindUserLinkKindService,
         FindUserLinkService,
         {
           provide: getRepositoryToken(UserLink),
           useValue: userLinkRepositoryMock,
+        },
+        {
+          provide: getRepositoryToken(UserLinkKind),
+          useValue: userLinkKindRepositoryMock,
         },
       ],
     }).compile();
@@ -29,10 +40,14 @@ describe('UpdateUserLinkService', () => {
   });
 
   it('should update a user link', () => {
-    const payload = { ...userLinkMock, title: 'Updated title' };
+    const payload = {
+      ...userLinkMock,
+      kind: UserLinkKindEnum.BASIC,
+      title: 'Updated title',
+    };
 
     return service
-      .update(userLinkMock.user as string, userLinkMock.id, payload)
+      .update(userLinkMock.user as number, userLinkMock.id, payload)
       .then((result) => {
         expect(result.id).toBe(payload.id);
         expect(result.title).toBe(payload.title);

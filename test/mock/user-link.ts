@@ -4,11 +4,12 @@ import { userLinkKindMock } from './user-link-kind';
 import { UpdateResult } from 'typeorm';
 
 export const userLinkMock: UserLink = {
-  id: 'abc',
+  id: 1,
   kind: userLinkKindMock.id,
   title: 'GitHub',
   url: 'https://github.com/leorcvargas',
   user: userMock.id,
+  display: true,
   createdAt: new Date(),
   updatedAt: new Date(),
   deletedAt: null,
@@ -17,21 +18,23 @@ export const userLinkMock: UserLink = {
 export const userLinksMock: UserLink[] = [
   { ...userLinkMock },
   {
-    id: 'def',
+    id: 2,
     kind: userLinkKindMock.id,
     title: 'Instagram',
     url: 'https://instagram.com/leorcvargas',
     user: userMock.id,
+    display: true,
     createdAt: new Date(),
     updatedAt: new Date(),
     deletedAt: null,
   },
   {
-    id: 'OEwqjekmlqE',
+    id: 3,
     kind: userLinkKindMock.id,
     title: 'Deleted Instagram',
     url: 'https://instagram.com/dkpewermlwqkr',
     user: userMock.id,
+    display: true,
     createdAt: new Date(),
     updatedAt: new Date(),
     deletedAt: new Date(),

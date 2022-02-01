@@ -45,7 +45,9 @@ describe('FindUserLinkService', () => {
   });
 
   it('should not contain deleted user links', () => {
-    return service.findByUser(userMock.id).then((userLinks) => {
+    const promise = service.findByUser(userMock.id);
+
+    return promise.then((userLinks) => {
       userLinks.forEach((userLink) => {
         expect(userLink.deletedAt).toBeNull();
       });

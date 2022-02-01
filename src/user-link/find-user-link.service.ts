@@ -11,7 +11,7 @@ export class FindUserLinkService {
     private readonly userLinkRepository: Repository<UserLink>,
   ) {}
 
-  public findByUser(userId: string) {
+  public findByUser(userId: number) {
     return this.userLinkRepository.find({
       where: { user: userId, deletedAt: null },
       loadRelationIds: true,
