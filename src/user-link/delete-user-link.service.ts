@@ -11,8 +11,8 @@ export class DeleteUserLinkService {
     private readonly userLinkRepository: Repository<UserLink>,
   ) {}
 
-  public delete(userId: string, id: string): Promise<UpdateResult> {
-    const conditions: FindConditions<UserLink> = { id, user: userId };
+  public delete(userId: number, id: number): Promise<UpdateResult> {
+    const conditions: FindConditions<UserLink> = { id, user: { id: userId } };
 
     return this.userLinkRepository.softDelete(conditions);
   }

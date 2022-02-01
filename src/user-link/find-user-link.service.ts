@@ -14,12 +14,14 @@ export class FindUserLinkService {
   public findByUser(userId: string) {
     return this.userLinkRepository.find({
       where: { user: userId, deletedAt: null },
+      loadRelationIds: true,
     });
   }
 
-  public findOneFromUser(userId: string, id: string) {
+  public findOneFromUser(userId: number, id: number) {
     return this.userLinkRepository.findOne({
       where: { id, user: userId },
+      loadRelationIds: true,
     });
   }
 }

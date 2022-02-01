@@ -15,9 +15,9 @@ import { UserLink } from '../user-link/user-link.entity';
 @ObjectType()
 @Entity({ name: 'users' })
 export class User {
-  @Field((_type) => String)
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @Field((_type) => Number)
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Field((_type) => String)
   @Column({ unique: true })

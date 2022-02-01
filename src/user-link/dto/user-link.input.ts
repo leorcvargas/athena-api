@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsOptional } from 'class-validator';
+import { IsEnum, IsOptional, ValidateIf } from 'class-validator';
 
 import { UserLinkKindEnum } from '../../user-link-kind/user-link-kind.entity';
 
@@ -7,13 +7,19 @@ import { UserLinkKindEnum } from '../../user-link-kind/user-link-kind.entity';
 export class UserLinkInput {
   @Field((_type) => String, { nullable: true })
   @IsOptional()
-  title: string;
+  title?: string;
 
   @Field((_type) => String, { nullable: true })
   @IsOptional()
-  url: string;
+  url?: string;
+
+  @Field((_type) => Boolean, { nullable: true })
+  @IsOptional()
+  display?: boolean;
 
   @Field((_type) => UserLinkKindEnum, { nullable: true })
+  @ValidateIf((obj) => !!obj.kind)
   @IsOptional()
-  kind: UserLinkKindEnum;
+  @IsEnum(UserLinkKindEnum)
+  kind?: UserLinkKindEnum;
 }

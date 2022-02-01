@@ -13,8 +13,8 @@ registerEnumType(UserLinkKindEnum, {
 @Entity({ name: 'user_link_kinds' })
 export class UserLinkKind {
   @Field((_type) => String)
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Field((_type) => UserLinkKindEnum)
   @Column()

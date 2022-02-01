@@ -11,7 +11,7 @@ export class FindUserLinkKindService {
     private readonly userLinkKindRepository: Repository<UserLinkKind>,
   ) {}
 
-  public findOne(id: string) {
+  public findOne(id: number) {
     return this.userLinkKindRepository.findOne(id);
   }
 

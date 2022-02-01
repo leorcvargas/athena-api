@@ -1,0 +1,6 @@
+{
+  "watch": ["src"],
+  "ext": "ts",
+  "ignore": ["test", "dist", "node_modules"],
+  "exec": "node --inspect --nolazy -r tsconfig-paths/register -r ts-node/register src/main.ts"
+}

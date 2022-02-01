@@ -44,7 +44,7 @@ export class UserLinkResolver {
   @Mutation((_returns) => UserLink)
   async updateUserLink(
     @CurrentUser() user,
-    @Args('id') id: string,
+    @Args('id') id: number,
     @Args('input') input: UserLinkInput,
   ) {
     return this.updateUserLinkService.update(user.id, id, input);
@@ -52,7 +52,7 @@ export class UserLinkResolver {
 
   @UseGuards(GqlAuthGuard)
   @Mutation((_returns) => ResponsePayload)
-  async deleteUserLink(@CurrentUser() user, @Args('id') id: string) {
+  async deleteUserLink(@CurrentUser() user, @Args('id') id: number) {
     await this.deleteUserLinkService.delete(user.id, id);
 
     const response = new ResponsePayload();
@@ -64,16 +64,21 @@ export class UserLinkResolver {
   @UseGuards(GqlAuthGuard)
   @Query((_returns) => [UserLink])
   async userLinks(@CurrentUser() user) {
-    return this.findUserLinkService.findByUser(user.id);
+    const result = await this.findUserLinkService.findByUser(user.id);
+    return result;
   }
 
   @ResolveField()
-  async kind(@Parent() userLink: UserLink) {
-    return this.findUserLinkKindService.findOne(userLink.kind as string);
+  kind(@Parent() userLink: UserLink) {
+    const id = userLink.kind as number;
+
+    return this.findUserLinkKindService.findOne(id);
   }
 
   @ResolveField()
-  async user(@Parent() userLink: UserLink) {
-    return this.findUserService.findOne(userLink.user as string);
+  user(@Parent() userLink: UserLink) {
+    const id = userLink.user as number;
+
+    return this.findUserService.findOne(id);
   }
 }

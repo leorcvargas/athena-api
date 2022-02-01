@@ -14,14 +14,17 @@ export class CreateUserLinkService {
     private readonly findUserLinkKindService: FindUserLinkKindService,
   ) {}
 
-  public async create(payload: {
-    url: string;
-    user: string;
-    kind: UserLinkKindEnum;
-  }) {
+  public async create(
+    payload: Partial<{
+      url: string;
+      user: number;
+      kind: UserLinkKindEnum;
+    }>,
+  ) {
     const kind = await this.findUserLinkKindService.findOneByKind(payload.kind);
     const userLink = this.userLinkRepository.create({
       ...payload,
+      user: { id: payload.user },
       kind,
     });
 
