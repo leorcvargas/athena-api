@@ -21,11 +21,11 @@ export class UserLink {
   id: string;
 
   @Field((_type) => String)
-  @Column()
+  @Column({ nullable: true })
   title: string;
 
   @Field((_type) => String)
-  @Column()
+  @Column({ nullable: true })
   url: string;
 
   @Field((_type) => User)

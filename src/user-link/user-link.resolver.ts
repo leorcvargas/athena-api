@@ -11,8 +11,6 @@ import {
 import { FindUserLinkKindService } from '../user-link-kind/find-user-link-kind.service';
 import { CurrentUser } from '../auth/decorators/current-user-gql.decorator';
 import { GqlAuthGuard } from '../auth/guards/graphql-auth.guard';
-import { CreateUserLinkInput } from './dto/create-user-link.input';
-import { DeleteUserLinkInput } from './dto/delete-user-link.input';
 import { UserLink } from './user-link.entity';
 import { CreateUserLinkService } from './create-user-link.service';
 import { FindUserLinkService } from './find-user-link.service';
@@ -20,7 +18,7 @@ import { FindUserService } from '../user/find-user.service';
 import { DeleteUserLinkService } from './delete-user-link.service';
 import { ResponsePayload } from '../lib/gql/response.payload';
 import { UpdateUserLinkService } from './update-user-link.service';
-import { UpdateUserLinkInput } from './dto/update-user-link.input';
+import { UserLinkInput } from './dto/user-link.input';
 
 @Resolver((_of) => UserLink)
 export class UserLinkResolver {
@@ -37,7 +35,7 @@ export class UserLinkResolver {
   @Mutation((_returns) => UserLink)
   async createUserLink(
     @CurrentUser() user,
-    @Args('input') input: CreateUserLinkInput,
+    @Args('input') input: UserLinkInput,
   ) {
     return this.createUserLinkService.create({ ...input, user: user.id });
   }
@@ -46,18 +44,16 @@ export class UserLinkResolver {
   @Mutation((_returns) => UserLink)
   async updateUserLink(
     @CurrentUser() user,
-    @Args('input') input: UpdateUserLinkInput,
+    @Args('id') id: string,
+    @Args('input') input: UserLinkInput,
   ) {
-    return this.updateUserLinkService.update(user.id, input.id, input);
+    return this.updateUserLinkService.update(user.id, id, input);
   }
 
   @UseGuards(GqlAuthGuard)
   @Mutation((_returns) => ResponsePayload)
-  async deleteUserLink(
-    @CurrentUser() user,
-    @Args('input') input: DeleteUserLinkInput,
-  ) {
-    await this.deleteUserLinkService.delete(user.id, input.id);
+  async deleteUserLink(@CurrentUser() user, @Args('id') id: string) {
+    await this.deleteUserLinkService.delete(user.id, id);
 
     const response = new ResponsePayload();
     response.success = true;
