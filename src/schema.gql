@@ -19,10 +19,10 @@ type LoginPayload {
 
 type Mutation {
   createUserLink(input: UserLinkInput!): UserLink!
-  deleteUserLink(id: Float!): ResponsePayload!
+  deleteUserLink(id: Int!): ResponsePayload!
   login(input: LoginInput!): LoginPayload!
   signUp(input: SignUpInput!): SignUpPayload!
-  updateUserLink(id: Float!, input: UserLinkInput!): UserLink!
+  updateUserLink(id: Int!, input: UserLinkInput!): UserLink!
 }
 
 type Query {
@@ -48,7 +48,7 @@ type User {
   createdAt: DateTime!
   deletedAt: DateTime
   email: String!
-  id: Float!
+  id: Int!
   password: String
   updatedAt: DateTime!
   username: String!
@@ -58,7 +58,7 @@ type UserLink {
   createdAt: DateTime!
   deletedAt: DateTime
   display: Boolean!
-  id: Float!
+  id: Int!
   kind: UserLinkKind!
   title: String!
   updatedAt: DateTime!
@@ -74,7 +74,7 @@ input UserLinkInput {
 }
 
 type UserLinkKind {
-  id: String!
+  id: Int!
   value: UserLinkKindEnum!
 }
 

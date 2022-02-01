@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import { Exclude } from 'class-transformer';
 import {
   Entity,
@@ -15,7 +15,7 @@ import { UserLink } from '../user-link/user-link.entity';
 @ObjectType()
 @Entity({ name: 'users' })
 export class User {
-  @Field((_type) => Number)
+  @Field((_type) => Int)
   @PrimaryGeneratedColumn()
   id: number;
 

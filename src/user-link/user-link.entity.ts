@@ -1,4 +1,4 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, Int, ObjectType } from '@nestjs/graphql';
 import {
   Entity,
   CreateDateColumn,
@@ -16,7 +16,7 @@ import { UserLinkKind } from '../user-link-kind/user-link-kind.entity';
 @ObjectType()
 @Entity({ name: 'user_links' })
 export class UserLink {
-  @Field((_type) => Number)
+  @Field((_type) => Int)
   @PrimaryGeneratedColumn()
   id: number;
 

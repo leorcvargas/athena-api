@@ -1,4 +1,4 @@
-import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 export enum UserLinkKindEnum {
@@ -12,7 +12,7 @@ registerEnumType(UserLinkKindEnum, {
 @ObjectType()
 @Entity({ name: 'user_link_kinds' })
 export class UserLinkKind {
-  @Field((_type) => String)
+  @Field((_type) => Int)
   @PrimaryGeneratedColumn()
   id: number;
 

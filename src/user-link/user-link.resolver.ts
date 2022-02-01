@@ -6,6 +6,7 @@ import {
   Resolver,
   Mutation,
   Args,
+  Int,
 } from '@nestjs/graphql';
 
 import { FindUserLinkKindService } from '../user-link-kind/find-user-link-kind.service';
@@ -44,7 +45,7 @@ export class UserLinkResolver {
   @Mutation((_returns) => UserLink)
   async updateUserLink(
     @CurrentUser() user,
-    @Args('id') id: number,
+    @Args({ name: 'id', type: () => Int }) id: number,
     @Args('input') input: UserLinkInput,
   ) {
     return this.updateUserLinkService.update(user.id, id, input);
@@ -52,7 +53,10 @@ export class UserLinkResolver {
 
   @UseGuards(GqlAuthGuard)
   @Mutation((_returns) => ResponsePayload)
-  async deleteUserLink(@CurrentUser() user, @Args('id') id: number) {
+  async deleteUserLink(
+    @CurrentUser() user,
+    @Args({ name: 'id', type: () => Int }) id: number,
+  ) {
     await this.deleteUserLinkService.delete(user.id, id);
 
     const response = new ResponsePayload();
