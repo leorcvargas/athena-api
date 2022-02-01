@@ -39,4 +39,9 @@ describe('FindUserService', () => {
       );
     });
   });
+
+  describe('find one by username or email', () => {
+    it.todo('should match email');
+    it.todo('should match username');
+  });
 });

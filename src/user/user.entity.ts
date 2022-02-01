@@ -7,7 +7,10 @@ import {
   UpdateDateColumn,
   Column,
   PrimaryGeneratedColumn,
+  OneToMany,
 } from 'typeorm';
+
+import { UserLink } from '../user-link/user-link.entity';
 
 @ObjectType()
 @Entity({ name: 'users' })
@@ -28,6 +31,9 @@ export class User {
   @Column()
   @Exclude()
   password?: string;
+
+  @OneToMany((_type) => UserLink, (userLink) => userLink.user)
+  links: UserLink[];
 
   @Field((_type) => Date)
   @CreateDateColumn({ name: 'created_at' })

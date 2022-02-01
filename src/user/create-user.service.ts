@@ -2,6 +2,7 @@ import { ConflictException, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
+import { FindUserService } from './find-user.service';
 import { User } from './user.entity';
 
 @Injectable()
@@ -9,16 +10,14 @@ export class CreateUserService {
   private readonly logger = new Logger(CreateUserService.name);
 
   constructor(
+    private readonly findUserService: FindUserService,
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
   ) {}
 
   async create(email: string, username: string, password: string) {
-    const userAlreadyExists = await this.userRepository
-      .createQueryBuilder()
-      .where('email = :email', { email })
-      .orWhere('username = :username', { username })
-      .getOne();
+    const userAlreadyExists =
+      await this.findUserService.findOneByEmailOrUsername(email, username);
 
     if (userAlreadyExists) {
       this.logger.warn(

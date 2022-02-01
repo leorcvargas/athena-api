@@ -9,6 +9,7 @@ import { userRepositoryMock } from '../mock/user';
 import { SignUpService } from '../../src/auth/sign-up.service';
 import { HashService } from '../../src/auth/hash.service';
 import { CreateUserService } from '../../src/user/create-user.service';
+import { FindUserService } from '../../src/user/find-user.service';
 
 describe('SignUpResolver', () => {
   let resolver: SignUpResolver;
@@ -28,6 +29,7 @@ describe('SignUpResolver', () => {
       providers: [
         SignUpResolver,
         CreateUserService,
+        FindUserService,
         SignUpService,
         HashService,
         {

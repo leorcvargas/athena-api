@@ -4,6 +4,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { User } from '../../src/user/user.entity';
 import { CreateUserService } from '../../src/user/create-user.service';
 import { userMock, userRepositoryMock } from '../mock/user';
+import { FindUserService } from '../../src/user/find-user.service';
 
 describe('CreateUserService', () => {
   let service: CreateUserService;
@@ -11,6 +12,7 @@ describe('CreateUserService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
+        FindUserService,
         CreateUserService,
         {
           provide: getRepositoryToken(User),
