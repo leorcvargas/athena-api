@@ -36,7 +36,6 @@ export class UserLink {
   @Column()
   position: number;
 
-  @Field((_type) => User)
   @ManyToOne((_type) => User, (user) => user.links, { nullable: false })
   @JoinColumn({ name: 'user_id' })
   user: User | number;

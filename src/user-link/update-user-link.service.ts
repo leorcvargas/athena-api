@@ -22,7 +22,10 @@ export class UpdateUserLinkService {
     id: number,
     payload: UpdateUserLinkInput,
   ) {
-    const userLink = await this.findUserLinkService.findOneFromUser(userId, id);
+    const userLink = await this.findUserLinkService.findOne({
+      where: { id, user: userId },
+      loadRelationIds: true,
+    });
 
     if (!userLink) {
       throw new NotFoundException();
@@ -53,7 +56,9 @@ export class UpdateUserLinkService {
     userId: number,
     { id, position }: UpdateUserLinkPositionInput,
   ) {
-    const link = await this.findUserLinkService.findOneFromUser(userId, id);
+    const link = await this.findUserLinkService.findOne({
+      where: { id, user: userId },
+    });
     link.position = position;
 
     return link;

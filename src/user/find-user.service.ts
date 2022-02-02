@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { FindOneOptions, Repository } from 'typeorm';
 
 import { User } from './user.entity';
 
@@ -11,19 +11,30 @@ export class FindUserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async findOne(id: number) {
-    return this.userRepository.findOne(id);
+  async findOne(options: FindOneOptions<User>) {
+    const user = await this.userRepository.findOne(options);
+    return user;
   }
 
-  async findOneByUsername(username: string) {
-    return this.userRepository.findOne({ where: { username } });
+  async findPublicProfile(username: string) {
+    const user = await this.userRepository.findOne({
+      where: (qb) => {
+        qb.where('links.display = :display', { display: true });
+        qb.andWhere('username = :username', { username });
+      },
+      join: { alias: 'user', innerJoinAndSelect: { links: 'user.links' } },
+      relations: ['links'],
+    });
+    return user;
   }
 
   async findOneByEmailOrUsername(email: string, username: string) {
-    return this.userRepository
+    const result = await this.userRepository
       .createQueryBuilder()
       .where('email = :email', { email })
       .orWhere('username = :username', { username })
       .getOne();
+
+    return result;
   }
 }

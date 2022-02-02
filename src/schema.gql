@@ -34,8 +34,15 @@ type Mutation {
   updateUserLinkPositions(input: [UpdateUserLinkPositionInput!]!): ResponsePayload!
 }
 
+type PublicProfilePayload {
+  id: Int!
+  links: [UserLink!]!
+  username: String!
+}
+
 type Query {
   profile: User!
+  publicProfile(username: String!): PublicProfilePayload!
   userLinks: [UserLink!]!
 }
 
@@ -85,7 +92,6 @@ type UserLink {
   title: String!
   updatedAt: DateTime!
   url: String!
-  user: User!
 }
 
 type UserLinkKind {

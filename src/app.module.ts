@@ -38,6 +38,7 @@ import LoggerMiddleware from './lib/middlewares/logger.middleware';
       playground: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
+      fieldResolverEnhancers: ['guards', 'interceptors'],
     }),
     AuthModule,
     UserModule,

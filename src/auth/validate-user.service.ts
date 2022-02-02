@@ -11,7 +11,7 @@ export class ValidateUserService {
   ) {}
 
   async validate(username: string, password: string) {
-    const user = await this.findUserService.findOneByUsername(username);
+    const user = await this.findUserService.findOne({ where: { username } });
 
     if (!user) {
       throw new NotFoundException('User not found');

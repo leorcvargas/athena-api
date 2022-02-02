@@ -15,7 +15,6 @@ import { GqlAuthGuard } from '../auth/guards/graphql-auth.guard';
 import { UserLink } from './user-link.entity';
 import { CreateUserLinkService } from './create-user-link.service';
 import { FindUserLinkService } from './find-user-link.service';
-import { FindUserService } from '../user/find-user.service';
 import { DeleteUserLinkService } from './delete-user-link.service';
 import { ResponsePayload } from '../lib/gql/response.payload';
 import { UpdateUserLinkService } from './update-user-link.service';
@@ -30,7 +29,6 @@ export class UserLinkResolver {
     private readonly deleteUserLinkService: DeleteUserLinkService,
     private readonly findUserLinkService: FindUserLinkService,
     private readonly updateUserLinkService: UpdateUserLinkService,
-    private readonly findUserService: FindUserService,
     private readonly findUserLinkKindService: FindUserLinkKindService,
   ) {}
 
@@ -94,12 +92,5 @@ export class UserLinkResolver {
     const id = userLink.kind as number;
 
     return this.findUserLinkKindService.findOne(id);
-  }
-
-  @ResolveField()
-  user(@Parent() userLink: UserLink) {
-    const id = userLink.user as number;
-
-    return this.findUserService.findOne(id);
   }
 }

@@ -33,7 +33,7 @@ export class User {
   password?: string;
 
   @OneToMany((_type) => UserLink, (userLink) => userLink.user)
-  links: UserLink[];
+  links: Promise<UserLink[]>;
 
   @Field((_type) => Date)
   @CreateDateColumn({ name: 'created_at' })
