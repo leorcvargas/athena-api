@@ -30,15 +30,15 @@ describe('FindUserService', () => {
     it('should find an user by id', () => {
       const id = 3123125214123;
 
-      expect(service.findOne(id)).resolves.toEqual(userMock);
+      expect(service.findOne({ where: { id } })).resolves.toEqual(userMock);
     });
   });
 
   describe('find one by username', () => {
     it('should find an user by username', () => {
-      expect(service.findOneByUsername(userMock.username)).resolves.toEqual(
-        userMock,
-      );
+      expect(
+        service.findOne({ where: { username: userMock.username } }),
+      ).resolves.toEqual(userMock);
     });
   });
 

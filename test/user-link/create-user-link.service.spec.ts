@@ -40,9 +40,11 @@ describe('CreateUserLinkService', () => {
   it('should create a new link', () => {
     const { url, user } = userLinkMock;
     return service
-      .create({
+      .create(user as number, {
         url,
-        user: user as number,
+        title: 'Title',
+        display: true,
+        position: 0,
         kind: UserLinkKindEnum.BASIC,
       })
       .then((userLink) => {
