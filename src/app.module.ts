@@ -39,6 +39,7 @@ import LoggerMiddleware from './lib/middlewares/logger.middleware';
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
       fieldResolverEnhancers: ['guards', 'interceptors'],
+      context: ({ req, res }) => ({ req, res }),
     }),
     AuthModule,
     UserModule,
