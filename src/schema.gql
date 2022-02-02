@@ -35,6 +35,8 @@ type Mutation {
 }
 
 type PublicProfilePayload {
+  bio: String
+  displayName: String
   id: Int!
   links: [UserLink!]!
   username: String!
@@ -73,8 +75,10 @@ input UpdateUserLinkPositionInput {
 }
 
 type User {
+  bio: String
   createdAt: DateTime!
   deletedAt: DateTime
+  displayName: String
   email: String!
   id: Int!
   password: String

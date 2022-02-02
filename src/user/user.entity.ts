@@ -32,6 +32,14 @@ export class User {
   @Exclude()
   password?: string;
 
+  @Field((_type) => String, { nullable: true })
+  @Column({ name: 'display_name', length: 64, nullable: true })
+  displayName: string;
+
+  @Field((_type) => String, { nullable: true })
+  @Column({ nullable: true })
+  bio: string;
+
   @OneToMany((_type) => UserLink, (userLink) => userLink.user)
   links: Promise<UserLink[]>;
 

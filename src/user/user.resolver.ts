@@ -19,10 +19,13 @@ export class UserResolver {
   async publicProfile(@Args('username') username: string) {
     const user = await this.findUserService.findPublicProfile(username);
 
-    const payload = new PublicProfilePayload();
-    payload.id = user.id;
-    payload.username = user.username;
-    payload.links = await user.links;
+    const payload = new PublicProfilePayload({
+      id: user.id,
+      username: user.username,
+      bio: user.bio,
+      displayName: user.displayName,
+      links: await user.links,
+    });
 
     return payload;
   }
