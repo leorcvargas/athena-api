@@ -9,6 +9,8 @@ import { AppService } from './app.service';
 import { configuration } from './config/configuration';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { UserLinkModule } from './user-link/user-link.module';
+import { UserLinkKindModule } from './user-link-kind/user-link-kind.module';
 import LoggerMiddleware from './lib/middlewares/logger.middleware';
 
 @Module({
@@ -36,9 +38,12 @@ import LoggerMiddleware from './lib/middlewares/logger.middleware';
       playground: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
+      fieldResolverEnhancers: ['guards', 'interceptors'],
     }),
     AuthModule,
     UserModule,
+    UserLinkModule,
+    UserLinkKindModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -2,16 +2,16 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { User } from '../../src/user/user.entity';
-import { UserService } from '../../src/user/user.service';
+import { FindUserService } from '../../src/user/find-user.service';
 import { userMock, userRepositoryMock } from '../mock/user';
 
-describe('UserService', () => {
-  let service: UserService;
+describe('FindUserService', () => {
+  let service: FindUserService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        UserService,
+        FindUserService,
         {
           provide: getRepositoryToken(User),
           useValue: userRepositoryMock,
@@ -19,7 +19,7 @@ describe('UserService', () => {
       ],
     }).compile();
 
-    service = module.get<UserService>(UserService);
+    service = module.get<FindUserService>(FindUserService);
   });
 
   it('should be defined', () => {
@@ -28,15 +28,22 @@ describe('UserService', () => {
 
   describe('find one', () => {
     it('should find an user by id', () => {
-      expect(service.findOne('some-random-uuid')).resolves.toEqual(userMock);
+      const id = 3123125214123;
+
+      expect(service.findOne({ where: { id } })).resolves.toEqual(userMock);
     });
   });
 
   describe('find one by username', () => {
     it('should find an user by username', () => {
-      expect(service.findOneByUsername(userMock.username)).resolves.toEqual(
-        userMock,
-      );
+      expect(
+        service.findOne({ where: { username: userMock.username } }),
+      ).resolves.toEqual(userMock);
     });
+  });
+
+  describe('find one by username or email', () => {
+    it.todo('should match email');
+    it.todo('should match username');
   });
 });

@@ -1,14 +1,17 @@
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { UserModule } from '../user/user.module';
-import { AuthService } from './auth.service';
-import { LocalStrategy } from './local.strategy';
-import { AuthController } from './auth.controller';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { JwtStrategy } from './jwt.strategy';
-import { AuthResolver } from './auth.resolver';
+import { LocalStrategy } from './strategies/local.strategy';
+import { JwtStrategy } from './strategies/jwt.strategy';
+import { SignUpService } from './sign-up.service';
+import { HashService } from './hash.service';
+import { LoginService } from './login.service';
+import { ValidateUserService } from './validate-user.service';
+import { LoginResolver } from './login.resolver';
+import { SignUpResolver } from './sign-up.resolver';
 
 @Module({
   imports: [
@@ -24,7 +27,15 @@ import { AuthResolver } from './auth.resolver';
       }),
     }),
   ],
-  providers: [AuthService, AuthResolver, LocalStrategy, JwtStrategy],
-  controllers: [AuthController],
+  providers: [
+    LoginResolver,
+    SignUpResolver,
+    SignUpService,
+    LoginService,
+    ValidateUserService,
+    HashService,
+    LocalStrategy,
+    JwtStrategy,
+  ],
 })
 export class AuthModule {}
