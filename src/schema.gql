@@ -29,6 +29,7 @@ type Mutation {
   createUserLink(input: CreateUserLinkInput!): UserLink!
   deleteUserLink(id: Int!): ResponsePayload!
   login(input: LoginInput!): LoginPayload!
+  logout: ResponsePayload!
   signUp(input: SignUpInput!): SignUpPayload!
   updateUserLink(id: Int!, input: UpdateUserLinkInput!): UserLink!
   updateUserLinkPositions(input: [UpdateUserLinkPositionInput!]!): ResponsePayload!
