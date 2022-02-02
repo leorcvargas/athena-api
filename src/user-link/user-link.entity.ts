@@ -32,6 +32,10 @@ export class UserLink {
   @Column({ default: true })
   display: boolean;
 
+  @Field((_type) => Int)
+  @Column()
+  position: number;
+
   @Field((_type) => User)
   @ManyToOne((_type) => User, (user) => user.links, { nullable: false })
   @JoinColumn({ name: 'user_id' })

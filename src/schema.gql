@@ -2,6 +2,14 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateUserLinkInput {
+  display: Boolean!
+  kind: UserLinkKindEnum!
+  position: Int!
+  title: String!
+  url: String!
+}
+
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
@@ -18,11 +26,12 @@ type LoginPayload {
 }
 
 type Mutation {
-  createUserLink(input: UserLinkInput!): UserLink!
+  createUserLink(input: CreateUserLinkInput!): UserLink!
   deleteUserLink(id: Int!): ResponsePayload!
   login(input: LoginInput!): LoginPayload!
   signUp(input: SignUpInput!): SignUpPayload!
-  updateUserLink(id: Int!, input: UserLinkInput!): UserLink!
+  updateUserLink(id: Int!, input: UpdateUserLinkInput!): UserLink!
+  updateUserLinkPositions(input: [UpdateUserLinkPositionInput!]!): ResponsePayload!
 }
 
 type Query {
@@ -44,6 +53,18 @@ type SignUpPayload {
   user: User!
 }
 
+input UpdateUserLinkInput {
+  display: Boolean
+  kind: UserLinkKindEnum
+  title: String
+  url: String
+}
+
+input UpdateUserLinkPositionInput {
+  id: Int!
+  position: Int!
+}
+
 type User {
   createdAt: DateTime!
   deletedAt: DateTime
@@ -60,17 +81,11 @@ type UserLink {
   display: Boolean!
   id: Int!
   kind: UserLinkKind!
+  position: Int!
   title: String!
   updatedAt: DateTime!
   url: String!
   user: User!
-}
-
-input UserLinkInput {
-  display: Boolean
-  kind: UserLinkKindEnum
-  title: String
-  url: String
 }
 
 type UserLinkKind {

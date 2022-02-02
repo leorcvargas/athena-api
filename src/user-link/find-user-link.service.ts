@@ -14,6 +14,7 @@ export class FindUserLinkService {
   public findByUser(userId: number) {
     return this.userLinkRepository.find({
       where: { user: userId, deletedAt: null },
+      order: { position: 'ASC' },
       loadRelationIds: true,
     });
   }

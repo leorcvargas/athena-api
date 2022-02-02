@@ -1,11 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserLinkInput } from './dto/user-link.input';
 
 import { FindUserLinkKindService } from '../user-link-kind/find-user-link-kind.service';
 import { FindUserLinkService } from './find-user-link.service';
 import { UserLink } from './user-link.entity';
+import { UpdateUserLinkInput } from './dto/update-user-link.input';
+import { UpdateUserLinkPositionInput } from './dto/update-user-link-position.input';
 
 @Injectable()
 export class UpdateUserLinkService {
@@ -16,7 +17,11 @@ export class UpdateUserLinkService {
     private readonly userLinkRepository: Repository<UserLink>,
   ) {}
 
-  public async update(userId: number, id: number, payload: UserLinkInput) {
+  public async update(
+    userId: number,
+    id: number,
+    payload: UpdateUserLinkInput,
+  ) {
     const userLink = await this.findUserLinkService.findOneFromUser(userId, id);
 
     if (!userLink) {
@@ -30,5 +35,27 @@ export class UpdateUserLinkService {
       ...payload,
       kind,
     });
+  }
+
+  // TODO: Improve logic
+  public async updatePositions(
+    userId: number,
+    input: UpdateUserLinkPositionInput[],
+  ) {
+    const updatedPositions = await Promise.all(
+      input.map((item) => this.mapNewPositions(userId, item)),
+    );
+
+    return this.userLinkRepository.save(updatedPositions);
+  }
+
+  private async mapNewPositions(
+    userId: number,
+    { id, position }: UpdateUserLinkPositionInput,
+  ) {
+    const link = await this.findUserLinkService.findOneFromUser(userId, id);
+    link.position = position;
+
+    return link;
   }
 }

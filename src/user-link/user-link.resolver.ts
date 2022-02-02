@@ -19,7 +19,9 @@ import { FindUserService } from '../user/find-user.service';
 import { DeleteUserLinkService } from './delete-user-link.service';
 import { ResponsePayload } from '../lib/gql/response.payload';
 import { UpdateUserLinkService } from './update-user-link.service';
-import { UserLinkInput } from './dto/user-link.input';
+import { UpdateUserLinkInput } from './dto/update-user-link.input';
+import { CreateUserLinkInput } from './dto/create-user-link.input';
+import { UpdateUserLinkPositionInput } from './dto/update-user-link-position.input';
 
 @Resolver((_of) => UserLink)
 export class UserLinkResolver {
@@ -36,9 +38,9 @@ export class UserLinkResolver {
   @Mutation((_returns) => UserLink)
   async createUserLink(
     @CurrentUser() user,
-    @Args('input') input: UserLinkInput,
+    @Args('input') input: CreateUserLinkInput,
   ) {
-    return this.createUserLinkService.create({ ...input, user: user.id });
+    return this.createUserLinkService.create(user.id, input);
   }
 
   @UseGuards(GqlAuthGuard)
@@ -46,9 +48,24 @@ export class UserLinkResolver {
   async updateUserLink(
     @CurrentUser() user,
     @Args({ name: 'id', type: () => Int }) id: number,
-    @Args('input') input: UserLinkInput,
+    @Args('input') input: UpdateUserLinkInput,
   ) {
     return this.updateUserLinkService.update(user.id, id, input);
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation((_returns) => ResponsePayload)
+  async updateUserLinkPositions(
+    @CurrentUser() user,
+    @Args({ name: 'input', type: () => [UpdateUserLinkPositionInput] })
+    input: UpdateUserLinkPositionInput[],
+  ) {
+    await this.updateUserLinkService.updatePositions(user.id, input);
+
+    const response = new ResponsePayload();
+    response.success = true;
+
+    return response;
   }
 
   @UseGuards(GqlAuthGuard)
