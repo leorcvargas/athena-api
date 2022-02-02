@@ -33,13 +33,21 @@ import LoggerMiddleware from './lib/middlewares/logger.middleware';
         verboseRetryLog: true,
       }),
     }),
-    GraphQLModule.forRoot({
-      debug: true,
-      playground: true,
-      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-      sortSchema: true,
-      fieldResolverEnhancers: ['guards', 'interceptors'],
-      context: ({ req, res }) => ({ req, res }),
+    GraphQLModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        debug: true,
+        playground: true,
+        autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+        sortSchema: true,
+        fieldResolverEnhancers: ['guards', 'interceptors'],
+        context: ({ req, res }) => ({ req, res }),
+        cors: {
+          origin: configService.get<string>('frontendDomain'),
+          credentials: true,
+        },
+      }),
     }),
     AuthModule,
     UserModule,
