@@ -21,6 +21,7 @@ export class FindUserService {
       where: (qb) => {
         qb.where('links.display = :display', { display: true });
         qb.andWhere('username = :username', { username });
+        qb.orderBy('links.position', 'ASC');
       },
       join: { alias: 'user', innerJoinAndSelect: { links: 'user.links' } },
       relations: ['links'],
