@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOneOptions, Repository } from 'typeorm';
 
@@ -25,6 +25,11 @@ export class FindUserService {
       join: { alias: 'user', innerJoinAndSelect: { links: 'user.links' } },
       relations: ['links'],
     });
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
     return user;
   }
 
